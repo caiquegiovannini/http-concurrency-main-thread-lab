@@ -1,5 +1,6 @@
 const startButton = document.getElementById("start-button");
 const list = document.getElementById("list");
+const fpsCounter = document.getElementById("fps-counter");
 const totalEl = document.getElementById("total");
 
 startButton.addEventListener("click", () => {
@@ -20,3 +21,14 @@ addEventListener("mousedown", () => {
     item.innerText = "Item";
     list.appendChild(item);
 });
+
+let number = 0;
+function counter() {
+    fpsCounter.innerText = number;
+    number += 1;
+    if (true) {
+        requestAnimationFrame(counter);
+    };
+};
+
+counter();
