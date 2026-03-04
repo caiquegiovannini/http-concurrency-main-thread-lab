@@ -1,4 +1,5 @@
 const startButton = document.getElementById("start-button");
+const list = document.getElementById("list");
 const totalEl = document.getElementById("total");
 
 startButton.addEventListener("click", () => {
@@ -12,4 +13,10 @@ startButton.addEventListener("click", () => {
     }
 
     totalEl.innerText = `Total: ${total}`;
+});
+
+addEventListener("mousedown", () => {
+    const item = document.createElement("li");
+    item.innerText = "Item";
+    list.appendChild(item);
 });
