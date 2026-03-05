@@ -1,3 +1,3 @@
 # HTTP Concurrency & Main Thread Lab
 
-A practical laboratory exploring HTTP concurrency, main thread blocking, and runtime performance behavior in the browser.
+Experimental study of HTTP concurrency patterns and their impact on main thread performance and UI responsiveness in the browser.
