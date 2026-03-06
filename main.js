@@ -6,7 +6,7 @@ const totalEl = document.getElementById("total");
 if (!window.Worker) {
     console.error("Your browser doesn't support web workers.");
 } else {
-    const myWorker = new Worker('worker.js', { name: 'Heavy calculation fancy worker' });
+    const myWorker = new Worker('worker.js', { type: 'module', name: 'Heavy calculation fancy worker' });
     
     startButton.addEventListener("click", () => {
         totalEl.innerText = 'Total: calculando em segundo plano...';
