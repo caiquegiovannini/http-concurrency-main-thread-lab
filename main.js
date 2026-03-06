@@ -22,8 +22,8 @@ addEventListener("mousedown", () => {
     list.appendChild(item);
 });
 
-let number = 0;
-function counter() {
+function counter(initialCounter) {
+    let number = initialCounter;
     fpsCounter.innerText = number;
     number += 1;
     if (true) {
@@ -31,4 +31,4 @@ function counter() {
     };
 };
 
-counter();
+counter(0);
