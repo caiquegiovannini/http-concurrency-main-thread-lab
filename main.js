@@ -3,18 +3,18 @@ const list = document.getElementById("list");
 const fpsCounter = document.getElementById("fps-counter");
 const totalEl = document.getElementById("total");
 
+const myWorker = new Worker('worker.js', { name: 'Heavy calculation fancy worker' });
+
 startButton.addEventListener("click", () => {
-    const start = performance.now();
-    let total = 0;
-
-    while (performance.now() - start < 5000) {
-        total += Math.random();
-        total += Math.sqrt(total);
-        total += Math.log(total + 5324);
-    };
-
-    totalEl.innerText = `Total: ${total}`;
+    totalEl.innerText = 'Total: calculando em segundo plano...';
+    myWorker.postMessage(0);
 });
+
+myWorker.onmessage = (event) => {
+    const wrokerResult = event.data;
+    const total = wrokerResult;
+    totalEl.innerText = `Total: ${total}`;
+};
 
 addEventListener("mousedown", () => {
     const item = document.createElement("li");
