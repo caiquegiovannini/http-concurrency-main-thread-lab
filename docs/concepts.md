@@ -33,3 +33,14 @@ Após a execução de cada Macrotask, a engine executa todas as tarefas de fila 
 
 ![loop executando macrotask, microtask e render](../assets/event-loop.png)
 
+---
+
+## Workers
+Criam threads em segundo plano, separada da principal, onde rodarão scripts javascript.
+Por criarem apenas uma thread secundária para rodar outros códigos e liberar a principal, que geralmente está associada a UI, não é possível manipular a `DOM` ou acessar a `Window`.
+
+## Web worker
+Estão geralmente associados a transferência de trabalho, como computação pesada, para uma thread secundária, evitando bloqueia da principal (geralmente UI).
+
+## Service worker
+Estão mais relacionadas a atuar como um proxy de rede, processamento de tarefas em segundo plano e coisas como armazenamento em cache e off-line.
