@@ -1,4 +1,7 @@
-const startButton = document.getElementById("start-button");
+import { heavyNumberCalculation } from "./heavy-number-calculation.js";
+
+const workerButton = document.getElementById("web-worker-heavy-calculation-button");
+const mainThreadButton = document.getElementById("main-thread-heavy-calculation-button");
 const list = document.getElementById("list");
 const fpsCounter = document.getElementById("fps-counter");
 const totalEl = document.getElementById("total");
@@ -8,7 +11,7 @@ if (!window.Worker) {
 } else {
     const myWorker = new Worker('worker.js', { type: 'module', name: 'Heavy calculation fancy worker' });
     
-    startButton.addEventListener("click", () => {
+    workerButton.addEventListener("click", () => {
         totalEl.innerText = 'Total: calculando em segundo plano...';
         myWorker.postMessage(0);
     });
@@ -19,6 +22,11 @@ if (!window.Worker) {
         totalEl.innerText = `Total: ${total}`;
     };
 };
+
+mainThreadButton.addEventListener('click', () => {
+    const result = heavyNumberCalculation(0);
+    totalEl.innerText = `Total: ${result}`;
+});
 
 addEventListener("mousedown", () => {
     const item = document.createElement("li");
