@@ -5,20 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTTP Performance</title>
 </head>
-<body>
+<body style="display: flex; gap: 80px;">
     <!-- index.html main.js worker.js api.js concurrency.js performance.js styles.css -->
-    <button id="main-thread-heavy-calculation-button" style="padding: 16px; display: block;">
-        Processamento pesado na thread principal
-    </button>
-    <button id="web-worker-heavy-calculation-button" style="margin-top: 16px; padding: 16px;">
-        Processamento pesado no web worker
-    </button>
-    <h1 id="total">Total: 0</h1>
-    
-    <p id="fps-counter"></p>
-    <ul id="list">
-    </ul>
+     <!-- <section id="cpu-bound">
+        <h2>CPU-bound tasks & Web Workers</h2>
+        <button id="main-thread-heavy-calculation-button" style="padding: 16px; display: block;">
+            Processamento pesado na thread principal
+        </button>
+        <button id="web-worker-heavy-calculation-button" style="margin-top: 16px; padding: 16px;">
+            Processamento pesado no web worker
+        </button>
+        <h1 id="total">Total: 0</h1>
+        
+        <p id="fps-counter"></p>
+        <ul id="list">
+        </ul>
+    </section> -->
+
+    <!----------------------------------------------------------------------------->
+    <!-- <div style="width: 1px; background-color: black;"></div> -->
+    <!----------------------------------------------------------------------------->
+
+    <section id="concurrency">
+        <h2>I/O concurrency</h2>
+        <button id="make-parallel-requests" style="padding: 16px; display: block; margin-bottom: 16px;">Make 20 requests (parallel)</button>
+        <button id="make-sequential-requests" style="padding: 16px; display: block; margin-bottom: 16px;">Make 20 requests (sequential)</button>
+        <button id="make-batch-requests" style="padding: 16px; display: block; margin-bottom: 16px;">Make 20 requests (batches)</button>
+    </section>
 
     <script src="./cpu-bound.js" type="module"></script>
+    <script src="./concurrency.js" type="module"></script>
 </body>
 </html>
