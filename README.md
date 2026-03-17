@@ -49,6 +49,7 @@ Result:
 This demonstrates how Web Workers prevent CPU-heavy tasks from blocking the UI.
 
 <p align="right"><a href="#readme-top">back to top ↑</a></p>
+
 ---
 
 ### 3. HTTP Concurrency Stress Test (soon)
