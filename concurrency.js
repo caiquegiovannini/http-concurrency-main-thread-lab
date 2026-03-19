@@ -74,12 +74,24 @@ parallelRequestsButton.addEventListener('click', async () => {
     };
 
     Promise.all(promises)
-        .then(values => console.log(values))
         .then(() => {
             const endTime = performance.now();
             console.log(`Tempo total = ${endTime - startTime}`);
-            // tempo total = 1.5 seg
+            // tempo total = 1.5 - 2.5 seg
+        })
+        .then(() => {
+            const log = performance.getEntriesByType("resource")
+                .filter(entry => entry.name == 'https://httpbin.org/delay/1')
+                .map(entry => ({
+                    name: entry.name,
+                    "keep-alive": entry.connectStart === 0 ? "Yes" : "No",
+                    connectStart: entry.connectStart,
+                    connectEnd: entry.connectEnd,
+                    duration: entry.duration
+                }));
+            console.table(log);
         });
+
 });
 
 sequentialRequestsButton.addEventListener('click', async () => {
@@ -109,6 +121,16 @@ batchesRequestsButton.addEventListener('click', async () => {
 
     console.log(`Tempo total = ${endTime - startTime}`);
     // tempo total = 5 seg
+
+    const log = performance.getEntriesByType("resource")
+        .filter(entry => entry.name == 'https://httpbin.org/delay/1')
+        .map(entry => ({
+            name: entry.name,
+            connectStart: entry.connectStart,
+            connectEnd: entry.connectEnd,
+            duration: entry.duration
+        }));
+    console.table(log);
 });
 
 abortButton.addEventListener('click', async () => {
