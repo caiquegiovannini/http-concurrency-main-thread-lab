@@ -1,6 +1,9 @@
 const parallelRequestsButton = document.getElementById('make-parallel-requests');
 const sequentialRequestsButton = document.getElementById('make-sequential-requests');
 const batchesRequestsButton = document.getElementById('make-batch-requests');
+const abortButton = document.getElementById('abort-request');
+
+let controller;
 
 async function fetchUrl(url) {
     return fetch(url);
@@ -31,8 +34,23 @@ async function runWithLimitV2(tasks, limit) {
 
     async function worker() {
         while (index < tasks.length) {
+            controller = new AbortController();
             const currentIndex = index++;
-            results[currentIndex] = await tasks[currentIndex]();
+            console.log("running index: ", currentIndex);
+
+
+            try {
+                const result = await tasks[currentIndex]();
+                results[currentIndex] = result;
+            } catch (e) {
+                if (e.name === "AbortError") {
+                    console.warn(`Request #${currentIndex+1} aborted`);
+                    results[currentIndex] = "aborted";
+                } else {
+                    console.error(`Request ${currentIndex+1} error: ${e}`);
+                    results[currentIndex] = "error";
+                }
+            }
         }
     }
 
@@ -40,6 +58,7 @@ async function runWithLimitV2(tasks, limit) {
     for (let i = 0;i < limit; i++) {
         workers.push(worker());
     }
+
     await Promise.all(workers);
 
     return results;
@@ -80,7 +99,7 @@ batchesRequestsButton.addEventListener('click', async () => {
 
     let promises = [];
     for (let i = 0; i < 20; i++) {
-        promises.push(() => fetchUrl('https://httpbin.org/delay/1'));
+        promises.push(() => fetch('https://httpbin.org/delay/1', {signal: controller.signal}));
     };
 
     // await runWithLimitV1(promises, 5);
@@ -90,4 +109,8 @@ batchesRequestsButton.addEventListener('click', async () => {
 
     console.log(`Tempo total = ${endTime - startTime}`);
     // tempo total = 5 seg
+});
+
+abortButton.addEventListener('click', async () => {
+    controller.abort();
 });
